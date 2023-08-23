@@ -130,7 +130,10 @@
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -152,31 +155,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,7 +225,20 @@ export class BudgetService {
         // Get Data
         const datas = this.List.filter((data) =&gt; new Date(data.YearMonth) &gt;= new Date(startYearMonth) &amp;&amp;  new Date(data.YearMonth) &lt;= new Date(endYearMonth));
 &nbsp;
+        // 取 Start Data
+        const getStartData = datas.find((data) =&gt; data.YearMonth === startYearMonth);
+        // 取 End Data
+        const getEndData = datas.find((data) =&gt; data.YearMonth === endYearMonth);
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(!getStartData || !getEndData) <span class="cstat-no" title="statement not covered" >return 0;</span>
+&nbsp;
+        // Filter Data Sum
         const sumTotal = datas.reduce((total, curr) =&gt; total + curr.Amount, 0);
+&nbsp;
+        // 當天
+        if(startYearMonth === endYearMonth) {
+            return sumTotal / dayjs(startYearMonth).daysInMonth();
+        }
 &nbsp;
         // 取得 start 當月第一天
         const startStartDayOfMonth = dayjs(startYearMonth).startOf('month');
@@ -231,22 +250,12 @@ export class BudgetService {
         // 計算剩餘天數
         const endRemainingDays = endLastDayOfMonth.diff(endYearMonth, 'day') -1;
 &nbsp;
-        // 取 Start Data
-        const getStartData = datas.find((data) =&gt; data.YearMonth === startYearMonth);
-        // 取 End Data
-        const getEndData = datas.find((data) =&gt; data.YearMonth === endYearMonth);
-&nbsp;
-        <span class="missing-if-branch" title="if path not taken" >I</span>if(!getStartData || !getEndData) <span class="cstat-no" title="statement not covered" >return 0;</span>
-&nbsp;
-        // 當天
-        if(startYearMonth === endYearMonth) {
-            return getStartData.Amount / dayjs(startYearMonth).daysInMonth();
-        }
-&nbsp;
+        // 取得 Start Budget
         const startBudget = getStartData.Amount / dayjs(startYearMonth).daysInMonth() * startRemainingDays;
 &nbsp;
+        // 取得 End Budget
         const endBudget = getEndData.Amount / dayjs(endYearMonth).daysInMonth() * endRemainingDays;
-    
+        
         const total = sumTotal - startBudget - endBudget;
 &nbsp;
         return total;
@@ -271,7 +280,7 @@ export class BudgetService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-08-23T09:27:19.917Z
+                at 2023-08-23T09:43:22.993Z
             </div>
         <script src="prettify.js"></script>
         <script>

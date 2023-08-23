@@ -20,7 +20,20 @@ export class BudgetService {
         // Get Data
         const datas = this.List.filter((data) => new Date(data.YearMonth) >= new Date(startYearMonth) &&  new Date(data.YearMonth) <= new Date(endYearMonth));
 
+        // 取 Start Data
+        const getStartData = datas.find((data) => data.YearMonth === startYearMonth);
+        // 取 End Data
+        const getEndData = datas.find((data) => data.YearMonth === endYearMonth);
+
+        if(!getStartData || !getEndData) return 0;
+
+        // Filter Data Sum
         const sumTotal = datas.reduce((total, curr) => total + curr.Amount, 0);
+
+        // 當天
+        if(startYearMonth === endYearMonth) {
+            return sumTotal / dayjs(startYearMonth).daysInMonth();
+        }
 
         // 取得 start 當月第一天
         const startStartDayOfMonth = dayjs(startYearMonth).startOf('month');
@@ -32,22 +45,12 @@ export class BudgetService {
         // 計算剩餘天數
         const endRemainingDays = endLastDayOfMonth.diff(endYearMonth, 'day') -1;
 
-        // 取 Start Data
-        const getStartData = datas.find((data) => data.YearMonth === startYearMonth);
-        // 取 End Data
-        const getEndData = datas.find((data) => data.YearMonth === endYearMonth);
-
-        if(!getStartData || !getEndData) return 0;
-
-        // 當天
-        if(startYearMonth === endYearMonth) {
-            return getStartData.Amount / dayjs(startYearMonth).daysInMonth();
-        }
-
+        // 取得 Start Budget
         const startBudget = getStartData.Amount / dayjs(startYearMonth).daysInMonth() * startRemainingDays;
 
+        // 取得 End Budget
         const endBudget = getEndData.Amount / dayjs(endYearMonth).daysInMonth() * endRemainingDays;
-    
+        
         const total = sumTotal - startBudget - endBudget;
 
         return total;
