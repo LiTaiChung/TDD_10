@@ -9,13 +9,13 @@ export class BudgetService {
     }
 
     totalAmount(start: string, end: string) {
+        // 非法起迄
+        if(dayjs(end).isBefore(dayjs(start))) return 0;
+
         const startDate = dayjs(start);
         const startYearMonth = dayjs(start).format('YYYYMM');
         const endDate = dayjs(end);
         const endYearMonth = dayjs(end).format('YYYYMM');
-
-        // 非法起迄
-        if(dayjs(end).isBefore(dayjs(start))) return 0;
 
         // Get Data
         const datas = this.List.filter((data) => new Date(data.YearMonth) >= new Date(startYearMonth) &&  new Date(data.YearMonth) <= new Date(endYearMonth));
