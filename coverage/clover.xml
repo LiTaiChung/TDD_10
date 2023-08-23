@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1692782839926" clover="3.2.0">
+  <project timestamp="1692782839926" name="All files">
+    <metrics statements="29" coveredstatements="28" conditionals="7" coveredconditionals="6" methods="8" coveredmethods="7" elements="44" coveredelements="41" complexity="0" loc="29" ncloc="29" packages="1" files="2" classes="2"/>
+    <file name="budgetDB.ts" path="/Users/twinb00595210/Desktop/Cathay/TDD/tdd_10/budgetDB.ts">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="3" count="12" type="stmt"/>
+      <line num="4" count="12" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
+    </file>
+    <file name="budgetService.ts" path="/Users/twinb00595210/Desktop/Cathay/TDD/tdd_10/budgetService.ts">
+      <metrics statements="25" coveredstatements="24" conditionals="7" coveredconditionals="6" methods="7" coveredmethods="6"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="5" count="4" type="stmt"/>
+      <line num="8" count="4" type="stmt"/>
+      <line num="12" count="4" type="stmt"/>
+      <line num="13" count="4" type="stmt"/>
+      <line num="14" count="4" type="stmt"/>
+      <line num="15" count="4" type="stmt"/>
+      <line num="18" count="4" type="cond" truecount="1" falsecount="0"/>
+      <line num="21" count="36" type="cond" truecount="2" falsecount="0"/>
+      <line num="23" count="6" type="stmt"/>
+      <line num="26" count="3" type="stmt"/>
+      <line num="28" count="3" type="stmt"/>
+      <line num="31" count="3" type="stmt"/>
+      <line num="33" count="3" type="stmt"/>
+      <line num="36" count="3" type="stmt"/>
+      <line num="38" count="6" type="stmt"/>
+      <line num="40" count="3" type="cond" truecount="2" falsecount="1"/>
+      <line num="43" count="3" type="cond" truecount="1" falsecount="0"/>
+      <line num="44" count="1" type="stmt"/>
+      <line num="47" count="2" type="stmt"/>
+      <line num="49" count="2" type="stmt"/>
+      <line num="51" count="2" type="stmt"/>
+      <line num="53" count="2" type="stmt"/>
+      <line num="57" count="0" type="stmt"/>
+    </file>
+  </project>
+</coverage>
